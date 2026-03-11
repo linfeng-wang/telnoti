@@ -116,3 +116,5 @@ tn.catch_all()  # any uncaught exception will be sent to Telegram
 | `stop_status()` | Cancel the status timer |
 | `notify(start, end, error)` | Decorator for notifications |
 | `catch_all()` | Hook `sys.excepthook` to send all unhandled errors |
+| `disable()` | Suppress all notifications (no messages sent) |
+| `enable()` | Re-enable notifications |

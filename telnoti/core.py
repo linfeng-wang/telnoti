@@ -5,7 +5,7 @@ import requests
 
 from .config import load_config, save_config
 
-_state = {"token": None, "chat_id": None, "initialized": False}
+_state = {"token": None, "chat_id": None, "initialized": False, "enabled": True}
 
 
 def _api_url(method: str) -> str:
@@ -15,6 +15,8 @@ def _api_url(method: str) -> str:
 def _post(method: str, **kwargs) -> None:
     if not _state["initialized"]:
         print("[telnoti] warning: not initialized. Call telnoti.init() first.", file=sys.stderr)
+        return
+    if not _state["enabled"]:
         return
     try:
         requests.post(_api_url(method), **kwargs)
@@ -47,6 +49,14 @@ def setup() -> None:
     _state["initialized"] = True
 
 
+def disable() -> None:
+    _state["enabled"] = False
+
+
+def enable() -> None:
+    _state["enabled"] = True
+
+
 def send(text: str) -> None:
     _post("sendMessage", data={"chat_id": _state["chat_id"], "text": text})
 
@@ -71,6 +81,8 @@ def send_image(path: str, caption: str = None) -> None:
         data["caption"] = caption
     if not _state["initialized"]:
         print("[telnoti] warning: not initialized. Call telnoti.init() first.", file=sys.stderr)
+        return
+    if not _state["enabled"]:
         return
     try:
         with open(path, "rb") as f:

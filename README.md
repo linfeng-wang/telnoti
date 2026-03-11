@@ -102,11 +102,27 @@ tn.init()
 tn.catch_all()  # any uncaught exception will be sent to Telegram
 ```
 
+## Bot Commands
+
+Send `/list` to your bot to see all active and recently completed runs:
+
+```
+Active runs
+  • train.py · PID 12345 · 14:32 (running 1h 23m, 42 msgs — "Epoch 8/10")
+
+Last 24h
+  ✅ data_prep.py · PID 10022 · 09:15 (2h 41m)
+  ❌ train_v2.py · PID 11500 · 11:00 (45m)
+  💀 overnight.py · PID 8800 · 02:00 (7h 12m)
+```
+
+The polling thread starts automatically on `tn.init()`. Active runs are always shown; completed/errored runs appear for 24 hours. Dead runs (process killed, last seen > 5 min ago) are shown with 💀.
+
 ## API
 
 | Function | Description |
 |---|---|
-| `init(token=None, chat_id=None)` | Initialize (loads config if no args) |
+| `init(token=None, chat_id=None, run_name=None)` | Initialize (loads config if no args); `run_name` overrides auto-detected name |
 | `setup()` | Interactive config wizard |
 | `send(text)` | Send a message |
 | `done(text)` | Send ✅ message |

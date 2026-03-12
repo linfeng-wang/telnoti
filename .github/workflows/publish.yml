@@ -32,7 +32,8 @@ jobs:
           fi
           echo "Publishing version $PKG_VERSION"
 
-      - name: Build and publish
-        run: flit publish
-        env:
-          FLIT_INDEX_URL: https://upload.pypi.org/legacy/
+      - name: Build
+        run: flit build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

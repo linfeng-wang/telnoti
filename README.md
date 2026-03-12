@@ -118,6 +118,18 @@ Last 24h
 
 The polling thread starts automatically on `tn.init()`. Active runs are always shown; completed/errored runs appear for 24 hours. Dead runs (process killed, last seen > 5 min ago) are shown with 💀.
 
+## Version
+
+```python
+import telnoti
+print(telnoti.__version__)  # e.g. 0.2.0
+```
+
+```bash
+telnoti --version  # telnoti 0.2.0
+telnoti -V
+```
+
 ## API
 
 | Function | Description |
